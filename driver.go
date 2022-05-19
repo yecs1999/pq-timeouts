@@ -40,14 +40,14 @@ func (t timeoutDriver) Open(connection string) (_ driver.Conn, err error) {
 		fmt.Printf("Strings split: %s\n",s)
 		if s[0] == "read_timeout" {
 			fmt.Printf("Value: %s\n",s[1])
-			val, err := strconv.Atoi(s[1])
+			val, err := strconv.Atoi(strings.Trim(s[1],"'\""))
 			fmt.Printf("%s %s\n",val,err)
 			if err != nil {
 				return nil, fmt.Errorf("Error interpreting value for read_timeout")
 			}
 			readTimeout = time.Duration(val) * time.Millisecond // timeout is in milliseconds
 		} else if s[0] == "write_timeout" {
-			val, err := strconv.Atoi(s[1])
+			val, err := strconv.Atoi(strings.Trim(s[1],"'\""))
 			if err != nil {
 				return nil, fmt.Errorf("Error interpreting value for write_timeout")
 			}
