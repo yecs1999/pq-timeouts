@@ -34,11 +34,14 @@ func (t timeoutDriver) Open(connection string) (_ driver.Conn, err error) {
 			return nil, err
 		}
 	}
-
+	fmt.Printf("%s\n",connection)
 	for _, setting := range strings.Fields(connection) {
 		s := strings.Split(setting, "=")
+		fmt.Printf("Strings split: %s\n",s)
 		if s[0] == "read_timeout" {
+			fmt.Printf("Value: %s\n",s[1])
 			val, err := strconv.Atoi(s[1])
+			fmt.Printf("%s %s\n",val,err)
 			if err != nil {
 				return nil, fmt.Errorf("Error interpreting value for read_timeout")
 			}
